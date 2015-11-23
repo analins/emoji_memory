@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Fredoka+One|Signika+Negative:400,600' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+      <div id="container">
+        <nav>
+          <h3>Memory Game</h3>
+          <ul id="nav-ul">
+            <li class="nav-li"><a href="#">1 Player</a></li>
+            <li class="nav-li">|</li>
+            <li class="nav-li"><a href="#">2 Player</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div id="game">
+        <div id="game-setup">
+        <!--first row */-->
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+        <!--second row */-->
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+        <!--third row */-->
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+        <!--fourth row */-->
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+          <div class="squares"></div>
+
+        </div>
+        <aside>
+          <ul id="players">
+            <li class="player">Player 1 Matches: 00</li>
+            <li class="player">Player 2 Matches: 00</li>
+          </ul>
+        </aside>
+        <footer>
+          <ul id="game-info">
+            <li class="game-info-li">Time: 00s</li>
+            <li class="game-info-li">Moves: 00</li>
+            <li class="game-info-li"><a id="reset" href="#reset">Startover</a></li>
+          </ul>
+        </footer>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js" charset="utf-8"></script>
+    <script src="scripts.js" charset="utf-8"></script>
+  </body>
+</html>
