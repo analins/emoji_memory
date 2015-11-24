@@ -1,143 +1,156 @@
-
 console.log('loaded');
 
-
-//Stuff I know I'll need at some point
-
-//images?
-
-//render 4x4 grid
-//table or div setup
-//8 classes
-
-//array for a 4 x 4 board
-var memoryBoard = [
-  'a', 'b', 'c', 'd',
-  'e', 'f', 'g', 'h',
-  'a', 'b', 'c', 'd',
-  'e', 'f', 'g', 'h'
-];
+//Step 1: Global variables and Arrays
+// var memoryBoard = [
+// 		'a', 'b', 'c', 'd',
+// 		'e', 'f', 'g', 'h',
+// 		'a', 'b', 'c', 'd',
+// 		'e', 'f', 'g', 'h'
+// ];
 var imagePairs = [
-  '../card_images/card_images.001.png',
-  '../card_images/card_images.002.png',
-  '../card_images/card_images.003.png',
-  '../card_images/card_images.004.png',
-  '../card_images/card_images.005.png',
-  '../card_images/card_images.006.png',
-  '../card_images/card_images.007.png',
-  '../card_images/card_images.008.png',
-  '../card_images/card_images.001.png',
-  '../card_images/card_images.002.png',
-  '../card_images/card_images.003.png',
-  '../card_images/card_images.004.png',
-  '../card_images/card_images.005.png',
-  '../card_images/card_images.006.png',
-  '../card_images/card_images.007.png',
-  '../card_images/card_images.008.png'
+		'../card_images/card_images.001.png',
+		'../card_images/card_images.002.png',
+		'../card_images/card_images.003.png',
+		'../card_images/card_images.004.png',
+		'../card_images/card_images.005.png',
+		'../card_images/card_images.006.png',
+		'../card_images/card_images.007.png',
+		'../card_images/card_images.008.png',
+		'../card_images/card_images.001.png',
+		'../card_images/card_images.002.png',
+		'../card_images/card_images.003.png',
+		'../card_images/card_images.004.png',
+		'../card_images/card_images.005.png',
+		'../card_images/card_images.006.png',
+		'../card_images/card_images.007.png',
+		'../card_images/card_images.008.png'
 ];
-var flippedSquares = 0;
 var openSquares = [];
 var squareIds = [];
 
-//function that shuffles the memoryBoard array everytime the page loads
+var flippedSquares = 0;
+var matches = 0;
+var moves = 0
+var time = 0
+
+//Step 2: have a prototype function that shuffles all my arrays everytime the page loads
 Array.prototype.shuffle = function() {
-  var i = this.length, tempValue, randomIndex ;
-  while (i !== 0 ) {
-    randomIndex = Math.floor(Math.random() * i);
-    i--;
-    tempValue = this[i];
-    this[i] = this[randomIndex];
-    this[randomIndex] = tempValue;
-  }
+		var i = this.length,
+				tempValue, randomIndex;
+		while (i !== 0) {
+				randomIndex = Math.floor(Math.random() * i);
+				i--;
+				tempValue = this[i];
+				this[i] = this[randomIndex];
+				this[randomIndex] = tempValue;
+		}
 };
 
+//Step 3: function that sets up the logic for flipping the squares, and making a match.
+function squareFlip($square, image) {
 
 
-
-function squareFlip($square, image){
-
-console.log(image)
-
-
-    //check if square is empty and there are less than two open squares
-    if($square.html() == '' && openSquares.length < 2) {
-        $square.css({
-          'background': 'url(' + image + ')',
-          'background-size': 'contain'
-        });
-        if(openSquares.length == 0) {
-            openSquares.push(image);
-          //if one card is flipped over...
-        } else if(openSquares.length == 1){
-            openSquares.push(image);
-            squareIds.push($square.attr('id', image));
-          //if you have a match...
-            if(openSquares[0] == openSquares[1]) {
-                flippedSquares+=2;
-              //clear both arrays to get ready for a new matching sequence
-                openSquares = [];
-                squareIds = [];
-              //this is if all tiles are flipped...game ended
-                if(flippedSquares == openSquares.length) {
-                    console.log('game over')
-                    setupBoard();
-                }
-            } else {
-                //connected to the if you have a match
-                function flipSide(){
-                    var $squareOne = $(squareIds[0]);
-                    var $squareTwo = $(squareIds[1]);
-                    $squareOne.css({
-                      'background': 'url("../card_images/flipside.png")',
-                      'background-size': 'contain'
-                  });
-                    $squareOne.html('');
-                    $squareTwo.css({
-                      'background': 'url("../card_images/flipside.png")',
-                      'background-size': 'contain'
-                    });
-                    $squareTwo.html('');
-                  //clear arrays
-                    openSquares = [];
-                    squareIds = [];
-                }
-                setTimeout(flipSide, 500);
-            }
-        }
-    }
-  }
+		//check if square is empty and there are less than two open squares
+		if ($square.html() == '' && openSquares.length < 2) {
+				$square.css({
+						'background': 'url(' + image + ')',
+						'background-size': 'contain'
+				});
+				if (openSquares.length == 0) {
+						openSquares.push(image);
+            squareIds.push($square);
+						//if one card is flipped over...
+				} else if (openSquares.length == 1) {
+						openSquares.push(image);
+						squareIds.push($square);
+						//if you have a match...
+						if (openSquares[0] === openSquares[1]) {
+								flippedSquares += 2;
+								//clear both arrays to get ready for a new matching sequence
+								openSquares = [];
+								squareIds = [];
+								//this is if all tiles are flipped...game ended
+								if (flippedSquares == imagePairs.length) {
+										console.log('game over')
+										setupBoard();
+								}
+						} else {
+								//connected to the if you have a match
+								function flipSide() {
+										var $squareOne = $(squareIds[0]);
+										var $squareTwo = $(squareIds[1]);
+										$squareOne.html('');
+										$squareTwo.html('');
+										$squareOne.css({
+												'background': 'url("../card_images/flipside.png")',
+												'background-size': 'contain'
+										});
+										$squareTwo.css({
+												'background': 'url("../card_images/flipside.png")',
+												'background-size': 'contain'
+										});
+										//clear arrays
+										openSquares = [];
+										squareIds = [];
+								}
+								setTimeout(flipSide, 500);
+						}
+				}
+		}
+}
 
 //Function that sets up the 4 x 4 grid...this goes with the onload function
 function setupBoard() {
-    flippedSquares = 0;
+		flippedSquares = 0;
 		var $board = $('#game-setup');
-    var i = 0
-    // var $output = ''
-    imagePairs.shuffle();
+		var i = 0
 
-		imagePairs.forEach(function(image){
-      $('<div>').addClass('divSquares').appendTo($board)
+		imagePairs.shuffle();
+
+		imagePairs.forEach(function(image) {
+				$('<div>').addClass('divSquares').appendTo($board)
+
+				// $output+=
+				$('.divSquares').eq(i++).attr('id', i).on('click', function() {
+          //THE FIRST IMAGE CLICKED DOESN'T GO BACK BECAUSE THE CLICK FUNCTION IS ONLY WORKING ON ONE SQUARE AT A TIME?
+						//console.log(image)
+						// var imageIndex = i;
+						// console.log(i, imagePairs[imageIndex])
+						var $square = $(this);
+            squareFlip($square, image);
+            moveCount();
 
 
-      // $output+=
-      $('.divSquares').eq(i++).attr('id', i).on('click', function() {
-        //console.log(image)
-        // var imageIndex = i;
-        // console.log(i, imagePairs[imageIndex])
-        var $square = $(this);
-        squareFlip($square, image);
-      });
-    });
+				});
+		});
 };
-				//$("<img src='" + image + "'>'").attr('class', image).addClass('squares').appendTo($('.divSquares').eq(i++))
-
 
 
         $(document).ready(function() {
+          //Timer Start Function
+          var $clock = $('.game-info-li').eq(0);
+          var time = 0
+          var timer = setInterval(function(){
+            $clock.text('Time: ' + ++time + 's')
+          }, 1000);
+          moveCount();
         setupBoard();
+        // Timer End
+        //clearInterval(timer);
           });
 
 
+
+
+
+//Moves Made
+var $moves = $('.game-info-li').eq(1);
+var movesMade = 1;
+function moveCount() {
+  $moves.text('Moves: ' + Math.floor(movesMade++/2 ));
+};
+
+//Timer
 
 
 
