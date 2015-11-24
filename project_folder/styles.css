@@ -63,15 +63,15 @@ a:hover {
 		margin-bottom: 2%;
 }
 
-.squares {
+.divSquares {
 		float: left;
 		width: 20%;
 		padding-bottom: 20%;
 		margin: 1%;
-		background-color: #D4FB79;
-		border: 4px solid #FF6666;
-		border-radius: 8px;
+		background: url('../card_images/flipside.png') #D4FB79 no-repeat;
+    background-size: contain;
 }
+
 
 aside {
 		display: inline-block;
