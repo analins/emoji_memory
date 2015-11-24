@@ -37,7 +37,7 @@ var imagePairs = [
 ];
 var flippedSquares = 0;
 var openSquares = [];
-var squareId = [];
+var squareIds = [];
 
 //function that shuffles the memoryBoard array everytime the page loads
 Array.prototype.shuffle = function() {
@@ -54,16 +54,23 @@ Array.prototype.shuffle = function() {
 
 
 
-function squareFlip(square, image){
+function squareFlip($square, image){
+
+console.log(image)
+
+
     //check if square is empty and there are less than two open squares
-    if(square.html == '' && openSquares.length < 2) {
-        $square.css({'background': 'url("../card_images/" + image) no-repeat'});
+    if($square.html() == '' && openSquares.length < 2) {
+        $square.css({
+          'background': 'url(' + image + ')',
+          'background-size': 'contain'
+        });
         if(openSquares.length == 0) {
             openSquares.push(image);
           //if one card is flipped over...
         } else if(openSquares.length == 1){
             openSquares.push(image);
-            squareIds.push(square.id);
+            squareIds.push($square.attr('id', image));
           //if you have a match...
             if(openSquares[0] == openSquares[1]) {
                 flippedSquares+=2;
@@ -78,12 +85,18 @@ function squareFlip(square, image){
             } else {
                 //connected to the if you have a match
                 function flipSide(){
-                    var squareOne = $(squareIds[0]);
-                    var squareTwo = $(squareIds[1]);
-                    $squareOne.css({'background': 'url("../card_images/flipside.png") no-repeat'});
+                    var $squareOne = $(squareIds[0]);
+                    var $squareTwo = $(squareIds[1]);
+                    $squareOne.css({
+                      'background': 'url("../card_images/flipside.png")',
+                      'background-size': 'contain'
+                  });
                     $squareOne.html('');
-                    $squareTwo.css({'background':'url("../card_images/flipside.png") no-repeat'});
-                    $squareOne.html('');
+                    $squareTwo.css({
+                      'background': 'url("../card_images/flipside.png")',
+                      'background-size': 'contain'
+                    });
+                    $squareTwo.html('');
                   //clear arrays
                     openSquares = [];
                     squareIds = [];
@@ -96,19 +109,25 @@ function squareFlip(square, image){
 
 //Function that sets up the 4 x 4 grid...this goes with the onload function
 function setupBoard() {
-        flippedSquares = 0;
-				var $board = $('#game-setup');
-        var i = 0
-        var $output = ''
-        imagePairs.shuffle();
-				imagePairs.forEach(function(image){
-        $('<div>').addClass('divSquares').appendTo($board)
-        $output+= $('.divSquares').eq(i++).attr('id', i).on('click', function() {
-          squareFlip(this, imagePairs[image]);
-        })
+    flippedSquares = 0;
+		var $board = $('#game-setup');
+    var i = 0
+    // var $output = ''
+    imagePairs.shuffle();
 
-    })
+		imagePairs.forEach(function(image){
+      $('<div>').addClass('divSquares').appendTo($board)
 
+
+      // $output+=
+      $('.divSquares').eq(i++).attr('id', i).on('click', function() {
+        //console.log(image)
+        // var imageIndex = i;
+        // console.log(i, imagePairs[imageIndex])
+        var $square = $(this);
+        squareFlip($square, image);
+      });
+    });
 };
 				//$("<img src='" + image + "'>'").attr('class', image).addClass('squares').appendTo($('.divSquares').eq(i++))
 
