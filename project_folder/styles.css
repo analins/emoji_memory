@@ -6,7 +6,7 @@ body {
 nav {
 		height: 4.2em;
 		width: 100%;
-		position: fixed;
+		position: sticky;
 		background-color: #D4FB79;
 		display: inline-block;
 }
@@ -117,6 +117,23 @@ aside {
 
 #reset {
 		color: #FF6666;
+}
+#game-done {
+  text-align: center;
+  margin: auto;
+  max-width: 600px;
+}
+.play-again {
+  display: inline;
+  list-style: none;
+  font-family: 'Signika Negative', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FF6666;
+  margin-right: 2.5em;
+  padding: .5em 1em;
+  border: 3px solid #D4FB79;
+  border-radius: 20px;
 }
 
 @media (max-width: 400px) {

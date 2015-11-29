@@ -8,199 +8,214 @@ console.log('loaded');
 // 		'e', 'f', 'g', 'h'
 // ];
 var imagePairs = [
-		'../card_images/card_images.001.png',
-		'../card_images/card_images.002.png',
-		'../card_images/card_images.003.png',
-		'../card_images/card_images.004.png',
-		'../card_images/card_images.005.png',
-		'../card_images/card_images.006.png',
-		'../card_images/card_images.007.png',
-		'../card_images/card_images.008.png',
-		'../card_images/card_images.001.png',
-		'../card_images/card_images.002.png',
-		'../card_images/card_images.003.png',
-		'../card_images/card_images.004.png',
-		'../card_images/card_images.005.png',
-		'../card_images/card_images.006.png',
-		'../card_images/card_images.007.png',
-		'../card_images/card_images.008.png'
+  '../card_images/card_images.001.png',
+	'../card_images/card_images.002.png',
+	'../card_images/card_images.003.png',
+	'../card_images/card_images.004.png',
+	'../card_images/card_images.005.png',
+	'../card_images/card_images.006.png',
+	'../card_images/card_images.007.png',
+	'../card_images/card_images.008.png',
+	'../card_images/card_images.001.png',
+	'../card_images/card_images.002.png',
+	'../card_images/card_images.003.png',
+	'../card_images/card_images.004.png',
+	'../card_images/card_images.005.png',
+	'../card_images/card_images.006.png',
+	'../card_images/card_images.007.png',
+	'../card_images/card_images.008.png'
 ];
 var openSquares = [];
 var squareIds = [];
 
 var flippedSquares = 0;
 var matches = 0;
-var moves = 0
-var time = 0
+var moves = 0;
+var time = 0;
+
 
 //Step 2: have a prototype function that shuffles all my arrays everytime the page loads
 Array.prototype.shuffle = function() {
-		var i = this.length,
-				tempValue, randomIndex;
-		while (i !== 0) {
-				randomIndex = Math.floor(Math.random() * i);
-				i--;
-				tempValue = this[i];
-				this[i] = this[randomIndex];
-				this[randomIndex] = tempValue;
-		}
+  var i = this.length, tempValue, randomIndex;
+  while (i !== 0) {
+    randomIndex = Math.floor(Math.random() * i);
+	  i--;
+		tempValue = this[i];
+		this[i] = this[randomIndex];
+		this[randomIndex] = tempValue;
+	}
 };
 
 //Step 3: function that sets up the logic for flipping the squares, and making a match.
 function squareFlip($square, image) {
-
-
-		//check if square is empty and there are less than two open squares
-		if ($square.html() == '' && openSquares.length < 2) {
-				$square.css({
-						'background': 'url(' + image + ')',
-						'background-size': 'contain'
+	//check if square is empty and there are less than two open squares
+	if ($square.html() == '' && openSquares.length < 2) {
+		$square.css({
+			'background': 'url(' + image + ')',
+			'background-size': 'contain'
+		});
+	if (openSquares.length == 0) {
+		openSquares.push(image);
+    squareIds.push($square);
+		//if one card is flipped over...
+	} else if (openSquares.length == 1) {
+		openSquares.push(image);
+		squareIds.push($square);
+		//if you have a match...
+	if (openSquares[0] === openSquares[1]) {
+		flippedSquares += 2;
+		//clear both arrays to get ready for a new matching sequence
+		openSquares = [];
+		squareIds = [];
+		//this is if all tiles are flipped...game ended
+  	if (flippedSquares == imagePairs.length) {
+  		console.log('game over');
+      gameOver();
+    }
+	} else {
+		//connected to the if you have a match
+  		function flipSide() {
+				var $squareOne = $(squareIds[0]);
+				var $squareTwo = $(squareIds[1]);
+				$squareOne.html('');
+				$squareTwo.html('');
+				$squareOne.css({
+					'background': 'url("../card_images/flipside.png")',
+					'background-size': 'contain'
 				});
-				if (openSquares.length == 0) {
-						openSquares.push(image);
-            squareIds.push($square);
-						//if one card is flipped over...
-				} else if (openSquares.length == 1) {
-						openSquares.push(image);
-						squareIds.push($square);
-						//if you have a match...
-						if (openSquares[0] === openSquares[1]) {
-								flippedSquares += 2;
-								//clear both arrays to get ready for a new matching sequence
-								openSquares = [];
-								squareIds = [];
-								//this is if all tiles are flipped...game ended
-								if (flippedSquares == imagePairs.length) {
-										console.log('game over')
-										setupBoard();
-								}
-						} else {
-								//connected to the if you have a match
-								function flipSide() {
-										var $squareOne = $(squareIds[0]);
-										var $squareTwo = $(squareIds[1]);
-										$squareOne.html('');
-										$squareTwo.html('');
-										$squareOne.css({
-												'background': 'url("../card_images/flipside.png")',
-												'background-size': 'contain'
-										});
-										$squareTwo.css({
-												'background': 'url("../card_images/flipside.png")',
-												'background-size': 'contain'
-										});
-										//clear arrays
-										openSquares = [];
-										squareIds = [];
-								}
-								setTimeout(flipSide, 500);
-						}
-				}
-		}
+				$squareTwo.css({
+					'background': 'url("../card_images/flipside.png")',
+					'background-size': 'contain'
+				});
+				//clear arrays
+				openSquares = [];
+				squareIds = [];
+			}
+		setTimeout(flipSide, 600);
+	}
+	}
+	}
 }
 
 //Function that sets up the 4 x 4 grid...this goes with the onload function
 function setupBoard() {
-		flippedSquares = 0;
-		var $board = $('#game-setup');
-		var i = 0
+	flippedSquares = 0;
+	var $board = $('#game-setup');
+	var i = 0
 
-		imagePairs.shuffle();
+	imagePairs.shuffle();
 
-		imagePairs.forEach(function(image) {
-				$('<div>').addClass('divSquares').appendTo($board)
-
-				// $output+=
-				$('.divSquares').eq(i++).attr('id', i).on('click', function() {
-          //THE FIRST IMAGE CLICKED DOESN'T GO BACK BECAUSE THE CLICK FUNCTION IS ONLY WORKING ON ONE SQUARE AT A TIME?
-						//console.log(image)
-						// var imageIndex = i;
-						// console.log(i, imagePairs[imageIndex])
-						var $square = $(this);
-            squareFlip($square, image);
-            moveCount();
-
-
-				});
+	imagePairs.forEach(function(image) {
+		$('<div>').addClass('divSquares').appendTo($board)
+		$('.divSquares').eq(i++).attr('id', i).on('click', function() {
+			var $square = $(this);
+      squareFlip($square, image);
+      //Moves Made
+      moveCount();
 		});
+	});
+  //Timer Start Function
+  setInterval(timer, 1000)
 };
 
 
-        $(document).ready(function() {
-          //Timer Start Function
-          var $clock = $('.game-info-li').eq(0);
-          var time = 0
-          var timer = setInterval(function(){
-            $clock.text('Time: ' + ++time + 's')
-          }, 1000);
-          moveCount();
-        setupBoard();
-        // Timer End
-        //clearInterval(timer);
-          });
+$(document).ready(function() {
+  setupBoard();
+});
 
 
 
-
-
-//Moves Made
+//Moves Made / 2 player
 var $moves = $('.game-info-li').eq(1);
 var movesMade = 1;
 function moveCount() {
-  $moves.text('Moves: ' + Math.floor(movesMade++/2 ));
+  var currentMove = Math.floor(movesMade++/2)
+  $moves.text('Moves: ' + currentMove);
+  function playerTurn() {
+  var player;
+  var currentPlayer = 2
+  for(i=0; i<currentPlayer; i++)
+  if (currentMove % 2 == 1) {
+    player = 'player1';
+    $('#player-2').css({'background-color': '#D4FB79'})
+    $('#player-1').css({'background-color': 'white'})
+  }  else if (currentMove % 2 == 0) {
+    player = 'player2';
+    $('#player-1').css({'background-color': '#D4FB79'})
+    $('#player-2').css({'background-color': 'white'})
+  }
+  console.log(player);
+}
+setTimeout(playerTurn, 650)
 };
 
 //Timer
-
-
-
-/* function setupBoard() {
-				var $board = $('#game-setup')
-				memoryBoard.forEach(function(i){
-					$('<div>').addClass('squares').appendTo($board)
-				})
-				}
-setupBoard()
-
-//Assigns Images to each div
-function assignImages() {
-  var $squareDivs = $('.squares')
-  var i = 0;
-  var x = 0;
-  shuffle()
-  imagePairs.forEach(function(image){
-    $squareDivs.eq(i++).append($('<div>').addClass('image'))
-    $('.image').eq(x++).append($("<img src='" + image + "'>'").attr('class', image))
-  })
-}
-assignImages()
-
-/*
-
-
-
-function renderGame() {
-  //data binding to update classes
-}
-function resetGame() {
-  //shuffles cards
-  //reset timer
-  //reset movecount
-}
-
-function onePlayer() {
-
+var $clock = $('.game-info-li').eq(0);
+var time = 0
+function timer() {
+  $clock.text('Time: ' + ++time + 's')
 };
 
-function twoPlayer() {
-
-}
+//Rain Champagne Emojis on winner screen
 
 
+
+//Two Player Mode
+//Same page, but matches count as points...and they have to go to the correct player
+
+//Game over for 1 player mode
+function gameOver(){
+  $('#game').hide('slow', function(){
+    var $gameOver = $('<p>').addClass('game-over').appendTo('#game-done')
+    $gameOver.text('You matched all the Emojis!').css({
+      'font-family': '"Fredoka One", cursive',
+      'font-size': '72px',
+      'color': '#FF6666',
+      'text-align': 'center',
+      'width': '600px',
+      'margin': 'auto',
+      'margin-bottom': '30px',
+      'margin-top': '10%'
+    });
+    var $playAgainUl = $('<ul>').appendTo('#game-done')
+    var $playAgain = $('<li>').addClass('play-again').appendTo($playAgainUl)
+    $playAgain.text('Play Again');
+    $playAgain.on('click', function() {
+      console.log('clicked');
+      $('#game-done').hide(setupBoard());
+
+    });
+
+
+  });
+};
+
+/* function reset() {
+  var $playAgain = $('.play-again');
+  $playAgain.on('click', function() {
+    console.log('clicked');
+    $('#game-done').hide(function() {
+    setupBoard();
+    }
+  });
+} */
+
+
+//Reset Function
+
+
+
+
+
+
+
+
+
+/*
 //Player Object
 
 function Player(name, matchesCount, moves) {
-  this.name = name //|| Player 1 or 2;
+  this.name = name || Player ;
   this.matchCount = matchCount;
   this.moves = moves;
   this.win = false;
@@ -231,7 +246,7 @@ Player.prototype.win = function() {
 
 //One Player
 
-function onePlayer() {
+//function onePlayer() {
 
 }
 /* 2 player game:
