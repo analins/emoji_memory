@@ -25,8 +25,6 @@ var squareIds = [];
 
 var flippedSquares = 0;
 
-
-
 //Step 2: have a prototype function that shuffles all my arrays everytime the page loads
 Array.prototype.shuffle = function() {
   var i = this.length, tempValue, randomIndex;
@@ -89,10 +87,51 @@ function makeItRain(){
   }, 3000);
 };
 
+
+//Index screen
+
+function introScreen(){
+
+    var $intro = $('<h1>').addClass('intro').appendTo('#intro')
+    $intro.text('Welcome to the Emoji Memory Game!').css({
+      'font-family': '"Fredoka One", cursive',
+      'font-size': '52px',
+      'color': '#FF6666',
+      'text-align': 'center',
+      'width': '600px',
+      'margin': 'auto',
+      'margin-bottom': '30px',
+      'margin-top': '15%'
+    });
+    var $playerOptions = $('<ul>').addClass('playerz-ul').appendTo('#intro')
+    var $player1 = $('<li>').addClass('playerz').appendTo($playerOptions)
+    var $player2 = $('<li>').addClass('playerz').appendTo($playerOptions)
+    $player1.text('1 Player');
+    $player2.text('2 Player');
+    $('#game').hide()
+    $player1.on('click', function(){
+      $('#intro').hide(function(){
+        $('#game').show()
+          setupBoardOne();
+        })
+      })
+      $player2.on('click', function(){
+        $('#intro').hide(function(){
+          $('#game').show()
+            setupBoardTwo();
+          })
+        })
+      $('.nav-li').eq(0).on('click', function(){
+        setupBoardOne();
+      })
+      $('.nav-li').eq(2).on('click', function(){
+        setupBoardTwo();
+      })
+};
 //############# ONE PLAYER #################//
 
 //Step 3: function that sets up the logic for flipping the squares, and making a match.
-  function squareFlip($square, image) {
+  function squareFlipOne($square, image) {
 	//check if square is empty and there are less than two open squares
 	if ($square.html() == '' && openSquares.length < 2) {
 		$square.css({
@@ -143,7 +182,8 @@ function makeItRain(){
 };
 
 //Function that sets up the game
-function setupBoard() {
+function setupBoardOne() {
+  $('aside').hide()
 	flippedSquares = 0;
 	var $board = $('#game-setup');
 	var i = 0
@@ -167,7 +207,7 @@ function setupBoard() {
 
 
 $(document).ready(function() {
-  setupBoard();
+  introScreen();
 });
 
 //ONE PLAYER GAMEOVER
@@ -223,7 +263,9 @@ function gameOver(){
 //Two Player squareFlip function
 var pOneMatches = 1
 var pTwoMatches = 1
+var winner;
 function squareFlipTwo($square, image) {
+  $('aside').show()
 	//check if square is empty and there are less than two open squares
 	if ($square.html() == '' && openSquares.length < 2) {
 		$square.css({
@@ -253,7 +295,14 @@ function squareFlipTwo($square, image) {
 		//this is if all tiles are flipped...game ended
   	if (flippedSquares == imagePairs.length) {
   		console.log('game over');
-      gameOver();
+      if (pOneMatches === pTwoMatches) {
+      winner = 'This Game is a tie!';
+      }if (pOneMatches > pTwoMatches) {
+        winner = 'Player 1 Wins with ' + pOneMatches + ' Matches!'
+      }if (pOneMatches < pTwoMatches) {
+        winner = 'Player 2 Wins with ' + pOneMatches + ' Matches!'
+      }
+      gameOver2Player(winner);
     }
 	} else {
 		//connected to the if you have a match
@@ -280,9 +329,61 @@ function squareFlipTwo($square, image) {
 	}
 };
 
-//Reset Function
+//Function that sets up the game
+function setupBoardTwo() {
+  $('aside').hide()
+	flippedSquares = 0;
+	var $board = $('#game-setup');
+	var i = 0
+  //shuffle images array
+	imagePairs.shuffle();
+  //adds the 16 squares...4x4 grid
+	imagePairs.forEach(function(image) {
+		$('<div>').addClass('divSquares').appendTo($board)
+		$('.divSquares').eq(i++).attr('id', i).on('click', function() {
+			var $square = $(this);
+      squareFlipTwo($square, image);
+      //Moves Made
+      moveCount();
+      playerTurn();
+		});
+	});
+  //Timer Start Function
+  setInterval(function(){
+    timer();
+  }, 1000)
+};
 
 
+//TWO PLAYER GAMEOVER
+function gameOver2Player(winner){
+  $('#game').hide(function(){
+    makeItRain()
+    setInterval(function(){
+      makeItRain()}, 150);
+    var $gameOver = $('<p>').addClass('game-over').appendTo('#game-done')
+    $gameOver.text(winner).css({
+      'font-family': '"Fredoka One", cursive',
+      'font-size': '72px',
+      'color': '#FF6666',
+      'text-align': 'center',
+      'width': '600px',
+      'margin': 'auto',
+      'margin-bottom': '30px',
+      'margin-top': '20%'
+    });
+    var $playAgainUl = $('<ul>').appendTo('#game-done')
+    var $playAgain = $('<li>').addClass('play-again').appendTo($playAgainUl)
+    $playAgain.text('Play Again');
+    $playAgain.on('click', function() {
+      console.log('clicked');
+      $('#game-done').hide(setupBoard());
+
+    });
+
+
+  });
+};
 
 
 
