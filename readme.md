@@ -24,5 +24,5 @@ I pieced my functions together so they would do what I wanted them to do.
 
 **Unsolved Problems**
 CSS: Keeping everything perfectly centered at all times.
-JS: Reset function
-I realized towards the end that maybe using constructor functions would have maybe been more efficient.
+JS: Reset function. I used the location.reload() as an alternative.
+Stopping the timer. 

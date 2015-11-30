@@ -20,31 +20,7 @@ h3 {
 		display: inline-block;
 }
 
-#nav-ul {
-		list-style: none;
-		float: right;
-		margin-right: 2em;
-		margin-top: 1.5em;
-}
 
-.nav-li {
-		display: inline;
-		font-family: 'Signika Negative', sans-serif;
-		font-weight: 600;
-		font-size: 20px;
-		color: white;
-		margin-left: .25em;
-		margin-right: .25em;
-}
-
-
-.nav-li:active {
-		color: #FF6666;
-}
-
-.nav-li:hover {
-		color: #FF6666;
-}
 .playerz-ul {
 	max-width: 300px;
 	margin: auto;
@@ -161,16 +137,9 @@ aside {
 				margin-top: .3em;
 				margin-left: 2em;
 		}
-		#nav-ul {
-				display: inline-block;
-				margin-right: 2em;
-				margin-top: .5em;
-		}
-		.nav-li {
-				font-weight: 600;
-				font-size: 12px;
-				margin-left: .1em;
-				margin-right: .1em;
+		.intro {
+			font-size: 24px;
+			max-width: 390px;
 		}
 		#game {
 				max-width: 375px;
@@ -221,6 +190,10 @@ aside {
 				padding: .3em .5em;
 				border: 1.5px solid #D4FB79;
 		}
+		.game-over {
+			max-width: 390px;
+			font-size: 24px;
+		}
 }
 
 @media (min-width: 401px) and (max-width: 700px) {
@@ -233,16 +206,9 @@ aside {
 				margin-top: .2em;
 				margin-left: 1em;
 		}
-		#nav-ul {
-				display: inline-block;
-				margin-right: 1em;
-				margin-top: .6em;
-		}
-		.nav-li {
-				font-weight: 600;
-				font-size: 14px;
-				margin-left: .1em;
-				margin-right: .1em;
+		.intro {
+			font-size: 24px;
+			max-width: 400px;
 		}
 		#game {
 				max-width: 700px;
@@ -293,5 +259,9 @@ aside {
 				margin-right: 2.5em;
 				padding: .3em .5em;
 				border: 1.5px solid #D4FB79;
+		}
+		.game-over {
+			max-width: 400px;
+			font-size: 24px;
 		}
 }
