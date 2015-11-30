@@ -3,22 +3,22 @@ console.log('loaded');
 //Global Variables
 
 var imagePairs = [
-  '../card_images/card_images.001.png',
-	'../card_images/card_images.002.png',
-	'../card_images/card_images.003.png',
-	'../card_images/card_images.004.png',
-	'../card_images/card_images.005.png',
-	'../card_images/card_images.006.png',
-	'../card_images/card_images.007.png',
-	'../card_images/card_images.008.png',
-	'../card_images/card_images.001.png',
-	'../card_images/card_images.002.png',
-	'../card_images/card_images.003.png',
-	'../card_images/card_images.004.png',
-	'../card_images/card_images.005.png',
-	'../card_images/card_images.006.png',
-	'../card_images/card_images.007.png',
-	'../card_images/card_images.008.png'
+  './card_images/card_images.001.png',
+	'./card_images/card_images.002.png',
+	'./card_images/card_images.003.png',
+	'./card_images/card_images.004.png',
+	'./card_images/card_images.005.png',
+	'./card_images/card_images.006.png',
+	'./card_images/card_images.007.png',
+	'./card_images/card_images.008.png',
+	'./card_images/card_images.001.png',
+	'./card_images/card_images.002.png',
+	'./card_images/card_images.003.png',
+	'./card_images/card_images.004.png',
+	'./card_images/card_images.005.png',
+	'./card_images/card_images.006.png',
+	'./card_images/card_images.007.png',
+	'./card_images/card_images.008.png'
 ];
 var openSquares = [];
 var squareIds = [];
@@ -57,8 +57,8 @@ function timer() {
 //Rain Champagne Emojis on Winner Screen
 function makeItRain(){
   var $bottleDiv = $('<div>').appendTo('#game-done');
-  var $bottleOne = $('<img src="../card_images/winning.png">').addClass('winning').appendTo($bottleDiv);
-  var $bottleTwo = $('<img src="../card_images/winning.png">').addClass('winning').appendTo($bottleDiv);
+  var $bottleOne = $('<img src="./card_images/winning.png">').addClass('winning').appendTo($bottleDiv);
+  var $bottleTwo = $('<img src="./card_images/winning.png">').addClass('winning').appendTo($bottleDiv);
   $bottleDiv.css({
     'max-width': '200px',
   })
@@ -163,11 +163,11 @@ function introScreen(){
 				$squareOne.html('');
 				$squareTwo.html('');
 				$squareOne.css({
-					'background': 'url("../card_images/flipside.png")',
+					'background': 'url("./card_images/flipside.png")',
 					'background-size': 'contain'
 				});
 				$squareTwo.css({
-					'background': 'url("../card_images/flipside.png")',
+					'background': 'url("./card_images/flipside.png")',
 					'background-size': 'contain'
 				});
 				//clear arrays
@@ -312,11 +312,11 @@ function squareFlipTwo($square, image) {
 				$squareOne.html('');
 				$squareTwo.html('');
 				$squareOne.css({
-					'background': 'url("../card_images/flipside.png")',
+					'background': 'url("./card_images/flipside.png")',
 					'background-size': 'contain'
 				});
 				$squareTwo.css({
-					'background': 'url("../card_images/flipside.png")',
+					'background': 'url("./card_images/flipside.png")',
 					'background-size': 'contain'
 				});
 				//clear arrays
