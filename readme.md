@@ -20,17 +20,5 @@ In two player mode, the game keeps track of the score, and renders a message wit
 It also displays an animation where the champagne emojis 'rain' over the screen.
 ![winner](./readme_imgs/winner_screen.png)
 
-
-**Approach**
-I began by creating mockups of what I wanted the game to look like, and the stages of what I wanted it to do (./mockup/)
-I also began to 'Pseudocode' the logic.
-I set everything up with html and css...in order to get a clear visual of what I was doing and the space I was doing it in.
-I coded different parts of the game that I knew I would need at some point (i.e. array of images, creating the square grid, etc.)because stringing everything together initially seemed impossible, so I started with smaller parts.
-I pieced my functions together so they would do what I wanted them to do.
-
-
 **Unsolved Problems**
-CSS: Keeping everything perfectly centered at all times.
-JS: Reset function. I used the location.reload() as an alternative.
-Stopping the timer.
 Although the game works and is visible, and appropriately sized on mobile devices, I would like to improve on that so it adapts better to a vertical screen. 
