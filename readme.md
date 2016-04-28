@@ -1,6 +1,6 @@
 ### PROJECT #1: Emoji Memory Game
 
-This is a standard concentration memory game built with Javascript/jQuery ./project_folder/scripts.js.
+This is a standard concentration memory game built with Javascript/jQuery 
 
 I built a 4x4 grid of squares with 8 pairs of images with one player and two player modes
 Players click on images...two for each turn to flip the squares and see the images.
